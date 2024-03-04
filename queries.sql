@@ -1,3 +1,5 @@
+/*------------------------------------------------------------------------------------------------------------------*/
+
 /* Monthly sales per most popular genre */
 
 WITH PopularGenre AS (SELECT g.Name, SUM(il.Quantity*il.UnitPrice) AS PurchaseGenre
@@ -26,6 +28,8 @@ WHERE g.Name = pg.Name
 GROUP BY Month
 ORDER BY Month;
 
+/*------------------------------------------------------------------------------------------------------------------*/
+
 /* Relationship between Albums Released and Units Sold in USA */
 
 WITH AlbumUnitsSold AS (SELECT  ar.Name AS ArtistName, al.Title AS AlbumTitle, SUM(il.Quantity) AS UnitsSold
@@ -46,6 +50,8 @@ WITH AlbumUnitsSold AS (SELECT  ar.Name AS ArtistName, al.Title AS AlbumTitle, S
 SELECT ArtistName, COUNT(AlbumTitle) AS AlbumsReleased, SUM(UnitsSold) AS UnitsSold
 FROM AlbumUnitsSold
 GROUP BY ArtistName;
+
+/*------------------------------------------------------------------------------------------------------------------*/
 
 /* Earnings Top Artist Per Country */
 
@@ -78,6 +84,8 @@ ON ar.Name = TAE.TopArtist
 WHERE ar.Name = TAE.TopArtist
 GROUP BY c.Country;
 
+/*------------------------------------------------------------------------------------------------------------------*/
+
 /* TV Shows Length */
 
 SELECT al.Title AS AlbumTitle, (SUM(t.Milliseconds)/60000) AS AlbumLengthMinutes
@@ -89,3 +97,5 @@ ON g.GenreId = t.GenreId
 WHERE g.Name LIKE "TV Shows"
 GROUP BY AlbumTitle
 ORDER BY AlbumLengthMinutes DESC;
+
+/*------------------------------------------------------------------------------------------------------------------*/
